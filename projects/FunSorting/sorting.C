@@ -140,7 +140,8 @@ int main()
       example[i] = processor[example[i]];
     }
   }
-  
+
+  cout << "\n" << "Sorted Words:" << "\n";
     for (int i = 0; i < n; i++)
       cout << example[i] << "\n";
   return 0;
