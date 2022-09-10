@@ -67,11 +67,65 @@ void sortingTime(string arr[], int num)
     
 }
 
+void print(std::vector<string> const &input)
+{
+  for (int i = 0; i < input.size(); i++) {
+    std::cout << input.at(i) << ' ';
+  }
+}
+
+string removeSpecialCharacter(string s)
+{
+  for (int i = 0; i < s.size(); i++) {
+
+    // Finding the character whose
+    // ASCII value fall under this
+    // range
+    if (s[i] < 'A' || s[i] > 'Z' &&
+	s[i] < 'a' || s[i] > 'z')
+      {
+	// erase function to erase
+	// the character
+	s.erase(i, 1);
+	i--;
+      }
+  }
+  return s;
+}
+
+bool allletters(std::string const &str) {
+    return std::all_of(str.begin(), str.end(), [](char const &c) {
+      return std::isalpha(c);
+    });
+  }
 
 int main()
 {
-  string example[] = {"death", "ketamine", "poop", "apples", "bone","Capital", "banana","pee", "bodacious", "come", "adult", "cart", "can't", "darn"};
+
+  std::vector<string> input;
+  
+  string x;
+  while (std::cin >> x){
+    input.push_back(x);
+  }
+  
+  
+  string example[input.size()];
+  std::copy(input.begin(), input.end(), example);
+
+  //example = (const string[])example;
+
   int n = sizeof(example) / sizeof(example[0]);
+  
+  map<string,string> processor;
+  for(int i=0;i<n;i++){
+    if(!allletters(example[i])){
+      string newword = removeSpecialCharacter(example[i]);
+      processor.insert(make_pair(newword,example[i]));
+      example[i] = newword;
+    }
+  }
+
 
   for (int i = 0; i < n; i++)
     transform(example[i].begin(), example[i].end(), example[i].begin(), ::tolower);
@@ -80,9 +134,15 @@ int main()
   sortingTime(example, n);
 
 
-  cout << "Sorted array is \n";
+  
+  for(int i =0;i<n;i++){
+    if (processor.count(example[i]) > 0){
+      example[i] = processor[example[i]];
+    }
+  }
+  
     for (int i = 0; i < n; i++)
-      cout << example[i] << " ";
+      cout << example[i] << "\n";
   return 0;
 }
 
