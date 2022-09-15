@@ -5,59 +5,52 @@
 #include <vector>
 #include <map>
 #include <cctype>
+
+#include<bits/stdc++.h>
+
 using namespace std;
 
 
 
 //Needs: ignore special characters. ignore caps
+/*
+void bubbleSort(char arr[], int num)
+{
+  char temp;
+
+  for (int i = 0; i < num; i++)
+    {
+      for (int j = 0; j < num - 1 - i; j++)
+	{
+	  if (strcmp(arr[j], arr[j+1]) > 0)
+	    {
+	      strcpy(temp,arr[j]);
+	      strcpy(arr[j], arr[j+1]);
+	      strcpy(arr[j+1], temp);
+	    }
+	}
+    }
+}
+*/
 
 void sortingTime(string arr[], int num)
 {
 
-  map<char, int> divNum = {{'a',0}, 
-			   {'b',1},
-			   {'c',2},
-			   {'d',3},
-			   {'e',4},
-			   {'f',5},
-			   {'g',6},
-			   {'h',7},
-			   {'i',8},
-			   {'j',9},
-			   {'k',10},
-			   {'l',11},
-			   {'m',12},
-			   {'n',13},
-			   {'o',14},
-			   {'p',15},
-			   {'q',16},
-			   {'r',17},
-			   {'s',18},
-			   {'t',19},
-			   {'u',20},
-			   {'v',21},
-			   {'w',22,},
-			   {'x',23},
-			   {'y',24},
-			   {'z',25}}; //hardcoded array is .002 seconds faster
-      
-      
-  
-  vector<string> group[26]; //vector is a dynamic array. There are groups equal to the number of words
-  int d = 0;
-
-  
+  vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
+  int d = 0;   //^255 is max ascii value -> maybe change later idk
   for(int i = 0; i < num; i++)
     {
       char firstChar = tolower(arr[i][0]); //gets first char of word
-      d = divNum[firstChar]; //THIS STUPID = MADE ME DEBUG FOR 30+ MINS
+      int d = int(firstChar); //ascii vaue of first letter
       group[d].push_back(arr[i]);
+      //      cout << "group[" << d << "] contains: " << group[d] << " ";    
     }
   
-  for (int i = 0; i < 26; i++)
+  
+  for (int i = 0; i < 255; i++)
     if (group[i].begin() != group[i].end())
       sort(group[i].begin(), group[i].end()); //can add another sorting method for increased efficiency. Current one thinks capitals are higher
-	
+  //bubbleSort(group[i], num)
 
 
   int index = 0;
@@ -66,6 +59,8 @@ void sortingTime(string arr[], int num)
       arr[index++] = group[i][j];
     
 }
+
+
 
 void print(std::vector<string> const &input)
 {
