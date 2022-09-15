@@ -1,3 +1,4 @@
+
 // C++ program to sort an
 // array using bucket sort
 #include <algorithm>
@@ -13,7 +14,7 @@ using namespace std;
 
 
 //Needs: ignore special characters. ignore caps
-/*
+
 void bubbleSort(char arr[], int num)
 {
   char temp;
@@ -31,13 +32,12 @@ void bubbleSort(char arr[], int num)
 	}
     }
 }
-*/
+
 
 void sortingTime(string arr[], int num)
 {
 
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
-  int d = 0;   //^255 is max ascii value -> maybe change later idk
   for(int i = 0; i < num; i++)
     {
       char firstChar = tolower(arr[i][0]); //gets first char of word
@@ -49,13 +49,13 @@ void sortingTime(string arr[], int num)
   
   for (int i = 0; i < 255; i++)
     if (group[i].begin() != group[i].end())
-      sort(group[i].begin(), group[i].end()); //can add another sorting method for increased efficiency. Current one thinks capitals are higher
-  //bubbleSort(group[i], num)
+      //  sort(group[i].begin(), group[i].end()); //can add another sorting method for increased efficiency. Current one thinks capitals are higher
+      bubbleSort(group[i], num)
 
 
   int index = 0;
   for (int i = 0; i < 26; i++)
-    for (int j = 0; j < group[i].size(); j++)
+    for (std::vector<std::__cxx11::basic_string<char> >::size_type j = 0; j < group[i].size(); j++)
       arr[index++] = group[i][j];
     
 }
@@ -64,20 +64,19 @@ void sortingTime(string arr[], int num)
 
 void print(std::vector<string> const &input)
 {
-  for (int i = 0; i < input.size(); i++) {
+  for (std::vector<std::__cxx11::basic_string<char> >::size_type i = 0; i < input.size(); i++) {
     std::cout << input.at(i) << ' ';
   }
 }
 
 string removeSpecialCharacter(string s)
 {
-  for (int i = 0; i < s.size(); i++) {
+  for (std::vector<std::__cxx11::basic_string<char> >::size_type i = 0; i < s.size(); i++) {
 
     // Finding the character whose
     // ASCII value fall under this
     // range
-    if (s[i] < 'A' || s[i] > 'Z' &&
-	s[i] < 'a' || s[i] > 'z')
+    if ((s[i] < 'A' || s[i] > 'Z') && (s[i] < 'a' || s[i] > 'z'))
       {
 	// erase function to erase
 	// the character
