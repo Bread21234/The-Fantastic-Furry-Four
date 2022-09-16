@@ -26,7 +26,7 @@ bool isAlphaSmaller(string str1, string str2)
   }
   return false;
 }
-
+// actually dookie
 void selection(vector<string>& arr)
 {
   int n = arr.size();
@@ -44,10 +44,49 @@ void selection(vector<string>& arr)
   }
 }
 
-  
+
+void insertion(vector<string>& arr)
+{
+  int n = arr.size();
+  for(int i = 0; i < n - 1; ++i)
+    {
+      string key = arr[i];
+      int j = i -1;
+      
+      //essentially, works by moving elemts that are greater than the key to one poisiton ahead of their current position
+      while (j >= 0 && isAlphaSmaller(key, arr[j])){
+	arr[j + 1] = arr[j]; //moving it one index
+	j = j - 1;
+      }
+      arr[j + 1] = key;
+    }
+}
+
+void insertionSort(vector<string> &arr)
+{
+  int n = arr.size();
+  for (int i = 1; i < n; ++i) {
+    string key = arr[i];
+    int j = i - 1;
+
+    // Move elements of arr[0..i-1],
+    // that are greater than key,
+    // to one position ahead
+    // of their current position
+    while (j >= 0
+	   && isAlphaSmaller(key, arr[j])) {
+
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
+}
+
+ 
 void sortingTime(string arr[], int num)
 {
-  cout << "i hope this works";
+  cout << "lets try insertion";
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
   for(int i = 0; i < num; i++)
     {
@@ -61,8 +100,8 @@ void sortingTime(string arr[], int num)
     if (group[i].begin() != group[i].end())
       {
 	int n = sizeof(group[i]) / sizeof(group[0]);      
-        //	bubbleSort(group[i], n);
-	selection(group[i]);
+	bubbleSort(group[i], n);
+	//selection(group[i]);
       }
   
   int index = 0;
