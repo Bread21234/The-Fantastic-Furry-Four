@@ -15,31 +15,39 @@ using namespace std;
 
 
 //Needs: ignore special characters. ignore caps
-void bubbleSort(std::vector<string>& arr, int n)
+
+bool isAlphaSmaller(string str1, string str2)
 {
-  bool swapped = true;
-  int j = 0;
-  string tmp;
-
-  while (swapped)
-    {
-      swapped = false;
-      j++;
-      for (int i = 0; i < n - j; i++)
-	{
-	  if ( arr[i].compare(arr[i + 1]) )
-	    {
-
-	      tmp = arr[i];
-	      arr[i] = arr[i + 1];
-	      arr[i + 1] = tmp;
-	      swapped = true;
-	    }
-	}
-    }
+  transform(str1.begin(), str1.end(), str1.begin(),::tolower);
+  transform(str2.begin(), str2.end(), str2.begin(),::tolower); //converting both strings to lowercase values
+  
+  if (str1 < str2) {
+    return true;
+  }
+  return false;
 }
+
+void selection(vector<string>& arr)
+{
+  int n = arr.size();
+
+  for (int i = 0; i < n - 1; i++){
+    int minIndex = i; //initialize minimum value
+
+    for (int j = i + 1; j < n; j++)
+      if (isAlphaSmaller(arr[j],arr[minIndex]))
+	minIndex = j;
+
+    string temp = arr[minIndex];
+    arr[minIndex] = arr[i];
+    arr[i] = temp;
+  }
+}
+
+  
 void sortingTime(string arr[], int num)
 {
+  cout << "i hope this works";
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
   for(int i = 0; i < num; i++)
     {
@@ -53,8 +61,8 @@ void sortingTime(string arr[], int num)
     if (group[i].begin() != group[i].end())
       {
 	int n = sizeof(group[i]) / sizeof(group[0]);      
-	//	sort(group[i].begin(), group[i].end());
-	bubbleSort(group[i], n);
+        //	bubbleSort(group[i], n);
+	selection(group[i]);
       }
   
   int index = 0;
