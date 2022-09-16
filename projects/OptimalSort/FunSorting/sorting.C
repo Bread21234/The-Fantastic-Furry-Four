@@ -10,14 +10,11 @@
 
 #include<bits/stdc++.h>
 
-#define MAX 100
-
 using namespace std;
 
 
 
 //Needs: ignore special characters. ignore caps
-
 void bubbleSort(std::vector<string>& arr, int n)
 {
   bool swapped = true;
@@ -30,7 +27,7 @@ void bubbleSort(std::vector<string>& arr, int n)
       j++;
       for (int i = 0; i < n - j; i++)
 	{
-	  if (arr[i] > arr[i + 1])
+	  if ( arr[i].compare(arr[i + 1]) )
 	    {
 
 	      tmp = arr[i];
@@ -40,10 +37,9 @@ void bubbleSort(std::vector<string>& arr, int n)
 	    }
 	}
     }
-} 
-
+}
 void sortingTime(string arr[], int num)
-{  
+{
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
   for(int i = 0; i < num; i++)
     {
@@ -56,7 +52,9 @@ void sortingTime(string arr[], int num)
   for (int i = 0; i < 255; i++)
     if (group[i].begin() != group[i].end())
       {
-	bubbleSort(group[i], 5);
+	int n = sizeof(group[i]) / sizeof(group[0]);      
+	//	sort(group[i].begin(), group[i].end());
+	bubbleSort(group[i], n);
       }
   
   int index = 0;
