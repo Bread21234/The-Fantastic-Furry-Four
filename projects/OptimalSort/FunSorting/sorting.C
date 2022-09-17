@@ -15,30 +15,53 @@ using namespace std;
 
 
 //Needs: ignore special characters. ignore caps
-void bubbleSort(std::vector<string>& arr, int n)
+
+bool isAlphaSmaller(string str1, string str2)
 {
-  bool swapped = true;
-  int j = 0;
-  string tmp;
+  transform(str1.begin(), str1.end(), str1.begin(),::tolower);
+  transform(str2.begin(), str2.end(), str2.begin(),::tolower); //converting both strings to lowercase values
+  
+  if (str1 < str2) {
+    return true;
+  }
+  return false;
+}
+// actually dookie
+void selection(vector<string>& arr)
+{
+  int n = arr.size();
 
-  while (swapped)
-    {
-      swapped = false;
-      j++;
-      for (int i = 0; i < n - j; i++)
-	{
-	  if ( arr[i].compare(arr[i + 1]) )
-	    {
+  for (int i = 0; i < n - 1; i++){
+    int minIndex = i; //initialize minimum value
 
-	      tmp = arr[i];
-	      arr[i] = arr[i + 1];
-	      arr[i + 1] = tmp;
-	      swapped = true;
-	    }
-	}
-    }
+    for (int j = i + 1; j < n; j++)
+      if (isAlphaSmaller(arr[j],arr[minIndex]))
+	minIndex = j;
+
+    string temp = arr[minIndex];
+    arr[minIndex] = arr[i];
+    arr[i] = temp;
+  }
 }
 
+
+void insertion(vector<string>& arr)
+{
+  int n = arr.size();
+  for(int i = 0; i < n - 1; ++i)
+    {
+      string key = arr[i];
+      int j = i -1;
+      
+      //essentially, works by moving elemts that are greater than the key to one poisiton ahead of their current position
+      while (j >= 0 && isAlphaSmaller(key, arr[j])){
+	arr[j + 1] = arr[j]; //moving it one index
+	j = j - 1;
+      }
+      arr[j + 1] = key;
+    }
+}
+ 
 void sortingTime(string arr[], int num)
 {
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
@@ -54,8 +77,8 @@ void sortingTime(string arr[], int num)
     if (group[i].begin() != group[i].end())
       {
 	int n = sizeof(group[i]) / sizeof(group[0]);      
-	//	sort(group[i].begin(), group[i].end());
-	bubbleSort(group[i], n);
+	insertion(group[i]);
+	//	selection(group[i]);
       }
   
   int index = 0;
