@@ -47,7 +47,6 @@ void selection(vector<string>& arr)
   
 void sortingTime(string arr[], int num)
 {
-  cout << "i hope this works";
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
   for(int i = 0; i < num; i++)
     {
@@ -66,7 +65,7 @@ void sortingTime(string arr[], int num)
       }
   
   int index = 0;
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < 255; i++)
     for (std::vector<std::__cxx11::basic_string<char> >::size_type j = 0; j < group[i].size(); j++)
       arr[index++] = group[i][j];
     
