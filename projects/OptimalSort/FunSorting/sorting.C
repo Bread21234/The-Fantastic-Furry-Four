@@ -38,6 +38,7 @@ void bubbleSort(std::vector<string>& arr, int n)
 	}
     }
 }
+
 void sortingTime(string arr[], int num)
 {
   vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
@@ -45,9 +46,9 @@ void sortingTime(string arr[], int num)
     {
       char firstChar = tolower(arr[i][0]); //gets first char of word
       int d = int(firstChar); //ascii vaue of first letter
-      group[d].push_back(arr[i]);    
+      group[d].push_back(arr[i]);
     }
-  
+    
   
   for (int i = 0; i < 255; i++)
     if (group[i].begin() != group[i].end())
@@ -58,7 +59,7 @@ void sortingTime(string arr[], int num)
       }
   
   int index = 0;
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < 255; i++)
     for (std::vector<std::__cxx11::basic_string<char> >::size_type j = 0; j < group[i].size(); j++)
       arr[index++] = group[i][j];
     
