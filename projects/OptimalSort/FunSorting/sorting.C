@@ -63,7 +63,7 @@ vector<string> merge(vector<string> arr1,
   }
   return arr3;
 }
- 
+
 // Function to mergeSort 2 arrays
 vector<string> mergeSort(vector<string> arr, int lo, int hi)
 {
@@ -93,7 +93,7 @@ void sortingTime(string arr[], int num)
 
 
   vector<string> a = mergeSort(group, 0, num - 1);
-  
+
   for (int i = 0; i < n; i++) {
     cout << a[i] << "\n";
   }
@@ -123,7 +123,7 @@ int main()
 
 
   int n = sizeof(example) / sizeof(example[0]);
-  sortingTime(example, n);  
+  sortingTime(example, n);
   return 0;
 }
  
