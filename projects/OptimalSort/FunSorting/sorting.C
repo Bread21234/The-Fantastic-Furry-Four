@@ -78,7 +78,6 @@ void sortingTime(string arr[], int num)
       {
 	int n = sizeof(group[i]) / sizeof(group[0]);      
 	insertion(group[i]);
-	//	selection(group[i]);
       }
   
   int index = 0;
