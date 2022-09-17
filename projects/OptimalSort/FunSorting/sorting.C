@@ -27,45 +27,6 @@ bool isAlphaSmaller(string str1, string str2)
   return false;
 }
 
-// actually dookie and never to be used here again. 
-void selection(vector<string>& arr)
-{
-  int n = arr.size();
-
-  for (int i = 0; i < n - 1; i++){
-    int minIndex = i; //initialize minimum value
-
-    for (int j = i + 1; j < n; j++)
-      if (isAlphaSmaller(arr[j],arr[minIndex]))
-	minIndex = j;
-
-    string temp = arr[minIndex];
-    arr[minIndex] = arr[i];
-    arr[i] = temp;
-  }
-}
-
-
-void insertion(vector<string>& arr)
-{
-  int n = arr.size();
-  for(int i = 0; i < n - 1; ++i)
-    {
-      string key = arr[i];
-      int j = i -1;
-
-      //essentially, works by moving elemts that are greater than the key to one poisiton ahead of their current position
-      while (j >= 0 && isAlphaSmaller(key, arr[j])){
-	arr[j + 1] = arr[j]; //moving it one index
-	j = j - 1;
-      }
-      arr[j + 1] = key;
-    }
-}
-//////////////////////////////////////////////
-
-
-
 
 vector<string> merge(vector<string> arr1,
 		     vector<string> arr2)
@@ -124,28 +85,18 @@ vector<string> mergeSort(vector<string> arr, int lo, int hi)
 
 void sortingTime(string arr[], int num)
 {
-  vector<string>  group[255]; //vector is a dynamic array. There are groups equal to the number of words
+  vector<string>  group; //vector is a dynamic array. There are groups equal to the number of words
   for(int i = 0; i < num; i++)
-    {
-      char firstChar = tolower(arr[i][0]); //gets first char of word
-      int d = int(firstChar); //ascii vaue of first letter
-      group[d].push_back(arr[i]);
-    }
+    group.push_back(arr[i]);
+
+  int n = group.size();
 
 
-  for (int i = 0; i < 255; i++)
-    if (group[i].begin() != group[i].end())
-      {
-	int n = sizeof(group[i]) / sizeof(group[0]);
-	//	insertion(group[i]);
-	vector<string> a = mergeSort(group[i], 0, n - 1);
-      }
-
-  int index = 0;
-  for (int i = 0; i < 255; i++)
-    for (std::vector<std::__cxx11::basic_string<char> >::size_type j = 0; j < group[i].size(); j++)
-      arr[index++] = group[i][j];
-
+  vector<string> a = mergeSort(group, 0, num - 1);
+  
+  for (int i = 0; i < n; i++) {
+    cout << a[i] << "\n";
+  }
 }
 
 
@@ -156,31 +107,6 @@ void print(std::vector<string> const &input)
     std::cout << input.at(i) << ' ';
   }
 }
-
-string removeSpecialCharacter(string s)
-{
-  for (std::vector<std::__cxx11::basic_string<char> >::size_type i = 0; i < s.size(); i++) {
-
-    // Finding the character whose
-    // ASCII value fall under this
-    // range
-    if ((s[i] < 'A' || s[i] > 'Z') && (s[i] < 'a' || s[i] > 'z'))
-      {
-	// erase function to erase
-	// the character
-	s.erase(i, 1);
-	i--;
-      }
-  }
-  return s;
-}
-
-bool allletters(std::string const &str) {
-  return std::all_of(str.begin(), str.end(), [](char const &c) {
-    return std::isalpha(c);
-  });
-}
-
 int main()
 {
 
@@ -195,37 +121,9 @@ int main()
   string example[input.size()];
   std::copy(input.begin(), input.end(), example);
 
-  //example = (const string[])example;
 
   int n = sizeof(example) / sizeof(example[0]);
-
-  map<string,string> processor;
-  for(int i=0;i<n;i++){
-    if(!allletters(example[i])){
-      string newword = removeSpecialCharacter(example[i]);
-      processor.insert(make_pair(newword,example[i]));
-      example[i] = newword;
-    }
-  }
-
-
-  for (int i = 0; i < n; i++)
-    transform(example[i].begin(), example[i].end(), example[i].begin(), ::tolower);
-
-
-  sortingTime(example, n);
-
-
-
-  for(int i =0;i<n;i++){
-    if (processor.count(example[i]) > 0){
-      example[i] = processor[example[i]];
-    }
-  }
-
-  cout << "\n" << "Sorted Words:" << "\n";
-  for (int i = 0; i < n; i++)
-    cout << example[i] << "\n";
+  sortingTime(example, n);  
   return 0;
 }
  
