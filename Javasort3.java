@@ -3,29 +3,67 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Javasort2 {
+public class Javasort3 {
     static int cti(char c){
         return (int)c -96;
     }
     public static Map<Character, Integer> cti = new HashMap<>();
-    static ArrayList<String> insertionSort(ArrayList<String> arrl)
+    static String[] mergeSort(String[] Arr,
+                              int lo, int hi)
     {
-        ArrayList<String> arr = arrl;
-        int n = arr.size();
-        for (int i = 1; i < n; ++i) {
-            String key = arr.get(i);
-            int j = i - 1;
-
-            while (j >= 0 && isAlphabeticallySmaller(key, arr.get(j))) {
-                arr.set(j + 1, arr.get(j));
-                j = j - 1;
-            }
-            arr.set(j + 1, key);
+        if (lo == hi) {
+            String[] A = { Arr[lo] };
+            return A;
         }
-        return arr;
+        int mid = lo + (hi - lo) / 2;
+        String[] arr1 = mergeSort(Arr, lo, mid);
+        String[] arr2 = mergeSort(Arr, mid + 1, hi);
+
+        String[] arr3 = merge(arr1, arr2);
+        return arr3;
+    }
+
+    static String[] merge(
+            String[] Arr1, String[] Arr2)
+    {
+        int m = Arr1.length;
+        int n = Arr2.length;
+        String[] Arr3 = new String[m + n];
+
+        int idx = 0;
+
+        int i = 0;
+        int j = 0;
+
+        while (i < m && j < n) {
+            if (isAlphabeticallySmaller(
+                    Arr1[i], Arr2[j])) {
+
+                Arr3[idx] = Arr1[i];
+                i++;
+                idx++;
+            }
+            else {
+                Arr3[idx] = Arr2[j];
+                j++;
+                idx++;
+            }
+        }
+        while (i < m) {
+            Arr3[idx] = Arr1[i];
+            i++;
+            idx++;
+        }
+        while (j < n) {
+            Arr3[idx] = Arr2[j];
+            j++;
+            idx++;
+        }
+        return Arr3;
     }
 
     static boolean isAlphabeticallySmaller(String str1, String str2)
@@ -49,10 +87,13 @@ public class Javasort2 {
         }
         ArrayList<String> sor = new ArrayList<>();
         for(int i=0; i<42; i++){
-            sor.addAll(insertionSort(adj[i]));
+	    if(adj[i].size()>0){
+		String[] inp = new String[adj[i].size()];
+		inp = adj[i].toArray(inp);
+		String[] sorte = mergeSort(inp,0,inp.length-1);
+		sor.addAll(Arrays.asList(sorte));
+	    }
         }
-
-
         return sor;
     }
     public static void main(String[] args) throws IOException{
