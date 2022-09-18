@@ -1,28 +1,29 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Javasort1 {
+public class Javasort2 {
     static int cti(char c){
         return (int)c -96;
     }
     public static Map<Character, Integer> cti = new HashMap<>();
-    static ArrayList<String> bubbleSort(ArrayList<String> arrl, int n)
+    static ArrayList<String> insertionSort(ArrayList<String> arrl)
     {
         ArrayList<String> arr = arrl;
-        String temp;
-        boolean swapped;
-        for (int i = 0; i < n - 1; i++) {
-            swapped = false;
-            for (int j = 0; j < n - i - 1; j++) {
-                if (isAlphabeticallySmaller(arr.get(j + 1), arr.get(j))) {
-                    temp = arr.get(j);
-                    arr.set(j,arr.get(j+1));
-                    arr.set(j + 1, temp);
-                    swapped = true;
-                }
+        int n = arr.size();
+        for (int i = 1; i < n; ++i) {
+            String key = arr.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && isAlphabeticallySmaller(key, arr.get(j))) {
+                arr.set(j + 1, arr.get(j));
+                j = j - 1;
             }
-            if (swapped == false)
-                break;
+            arr.set(j + 1, key);
         }
         return arr;
     }
@@ -43,12 +44,12 @@ public class Javasort1 {
         }
         for(String s: arr) {
             char fl = Character.toLowerCase(s.charAt(0));
-            adj[cti.get(fl)-1].add(s);
+            int index = cti.get(fl) - 1;
+            adj[index].add(s);
         }
         ArrayList<String> sor = new ArrayList<>();
         for(int i=0; i<42; i++){
-            int sn = adj[i].size();
-            sor.addAll(bubbleSort(adj[i],sn));
+            sor.addAll(insertionSort(adj[i]));
         }
 
 
@@ -88,7 +89,7 @@ public class Javasort1 {
         }
         ArrayList<String> sorted = bsort(in);
 	for(String stri: sorted){
-	    pw.println(str);
+	    pw.println(stri);
 	}
 	pw.close();
     }
