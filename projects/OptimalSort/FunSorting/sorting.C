@@ -27,7 +27,7 @@ bool isAlphaSmaller(string str1, string str2)
   return false;
 }
 
-// actually dookie and never to be used here again. 
+// actually dookie and never to be used here again.
 void selection(vector<string>& arr)
 {
   int n = arr.size();
@@ -102,7 +102,7 @@ vector<string> merge(vector<string> arr1,
   }
   return arr3;
 }
- 
+
 // Function to mergeSort 2 arrays
 vector<string> mergeSort(vector<string> arr, int lo, int hi)
 {
@@ -136,9 +136,10 @@ void sortingTime(string arr[], int num)
   for (int i = 0; i < 255; i++)
     if (group[i].begin() != group[i].end())
       {
-	int n = sizeof(group[i]) / sizeof(group[0]);
-	//	insertion(group[i]);
-	vector<string> a = mergeSort(group[i], 0, n - 1);
+	int n = group[i].size();
+	//insertion(group[i]);
+	vector<string> temp = mergeSort(group[i], 0, n - 1);
+	group[i] = temp;
       }
 
   int index = 0;
@@ -227,5 +228,4 @@ int main()
   for (int i = 0; i < n; i++)
     cout << example[i] << "\n";
   return 0;
-}
- 
+}  
